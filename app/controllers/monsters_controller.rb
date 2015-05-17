@@ -1,5 +1,14 @@
 class MonstersController < ApplicationController
+ # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :null_session
   before_action :set_monster, only: [:show, :edit, :update, :destroy]
+
+  class << self
+    def image_url_base
+      "http://52.68.66.77:8080"
+    end
+  end
 
   # GET /monsters
   # GET /monsters.json
@@ -30,6 +39,15 @@ class MonstersController < ApplicationController
       if @monster.save
         format.html { redirect_to @monster, notice: 'Monster was successfully created.' }
         format.json { render :show, status: :created, location: @monster }
+
+        payload = {
+          channel: "#incoming-test", 
+          username: "webhookbot", 
+          text: "Found a monster !! <#{self.class.image_url_base}#{@monster.image.thumb.url}>",
+          icon_emoji: ":ghost:"
+        }
+
+        RestClient.post 'https://hooks.slack.com/services/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', "payload=#{payload.to_json}"   
       else
         format.html { render :new }
         format.json { render json: @monster.errors, status: :unprocessable_entity }

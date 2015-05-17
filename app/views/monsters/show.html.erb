@@ -1,9 +1,6 @@
-<p id="notice"><%= notice %></p>
-
+<h1>Image</h1>
 <p>
-  <strong>Image:</strong>
-  <%= @monster.image %>
-  <%= image_tag @monster.image %>
+  <%= image_tag(@monster.image.thumb) %>
 </p>
 
 <%= link_to 'Edit', edit_monster_path(@monster) %> |
