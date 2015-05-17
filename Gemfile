@@ -32,8 +32,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use carrierwave
 gem 'carrierwave'
 gem 'rmagick'
+
+# Use rest-client
+gem 'rest-client'
 
 group :development, :test do
   gem 'pry'
