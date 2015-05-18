@@ -39,6 +39,8 @@ gem 'rmagick'
 # Use rest-client
 gem 'rest-client'
 
+gem 'puma'
+
 group :development, :test do
   gem 'pry'
   gem 'pry-byebug'

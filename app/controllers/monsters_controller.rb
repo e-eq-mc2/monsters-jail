@@ -8,6 +8,10 @@ class MonstersController < ApplicationController
     def image_url_base
       "http://52.68.66.77:8080"
     end
+
+    def slack_url
+      'https://hooks.slack.com/services/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'
+    end
   end
 
   # GET /monsters
@@ -43,11 +47,11 @@ class MonstersController < ApplicationController
         payload = {
           channel: "#incoming-test", 
           username: "webhookbot", 
-          text: "Found a monster !! <#{self.class.image_url_base}#{@monster.image.thumb.url}>",
-          icon_emoji: ":ghost:"
+          text: "I found a monster !! <#{self.class.image_url_base}#{@monster.image.thumb.url}>",
+          icon_emoji: ":baymax:"
         }
 
-        RestClient.post 'https://hooks.slack.com/services/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', "payload=#{payload.to_json}"   
+        RestClient.post self.class.slack_url, "payload=#{payload.to_json}"   
       else
         format.html { render :new }
         format.json { render json: @monster.errors, status: :unprocessable_entity }
